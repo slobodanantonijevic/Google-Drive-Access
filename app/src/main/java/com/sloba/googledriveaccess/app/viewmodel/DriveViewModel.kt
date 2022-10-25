@@ -100,6 +100,7 @@ class DriveViewModel @Inject constructor(private val repo: DriveRepository?): Vi
                     setFiles(response.body)
                     resetError()
                 }
+                else -> {/* nothing for now */}
             }
 
             return@launch
