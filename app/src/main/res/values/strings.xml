@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Google Drive Access</string>
+
+    <string name="must_log_in">You have to sign in into your Google account</string>
+    <string name="log_in">Sign in with Google</string>
+
+    <string name="my_drive">My drive</string>
+    <string name="shared_with_me">Shared with me</string>
+    <string name="search">Search</string>
+
+    <string name="preview">Preview file</string>
+</resources>
