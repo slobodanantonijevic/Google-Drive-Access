@@ -29,7 +29,7 @@ android {
 
     signingConfigs {
         release {
-            storeFile file('homework.keystore')
+            storeFile file('driveaccess.keystore')
             storePassword password
             keyAlias alias
             keyPassword password
