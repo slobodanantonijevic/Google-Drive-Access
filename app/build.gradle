@@ -1,0 +1,139 @@
+
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+
+}
+
+ext.versionMajor = 0
+ext.versionMinor = 1
+ext.versionPatch = 0
+ext.versionClassifier = null
+ext.isSnapshot = false
+
+android {
+    compileSdkVersion 33
+    defaultConfig {
+        applicationId "com.sloba.googledriveaccess"
+        minSdk 26
+        targetSdkVersion 33
+        versionCode generateVersionCode()
+        versionName generateVersionName()
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('homework.keystore')
+            storePassword password
+            keyAlias alias
+            keyPassword password
+        }
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField 'String', 'DRIVE_URL', '"https://www.googleapis.com/"'
+            buildConfigField 'String', 'GOOGLE_CLIENT_ID', '"862519686321-bde2dvekaha73oa4vpsoniid4adk9dr1.apps.googleusercontent.com"'
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'DRIVE_URL', '"https://www.googleapis.com/"'
+            buildConfigField 'String', 'GOOGLE_CLIENT_ID', '"862519686321-s27b7saimeftf5mfrbv8m6f6ggspgh6o.apps.googleusercontent.com"'
+            signingConfig signingConfigs.release
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.1.1'
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+    // Core
+    implementation "androidx.core:core-ktx:$androidCoreVersion"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+    implementation "androidx.activity:activity-compose:$composeActivityVersion"
+
+    // Compose
+    implementation "androidx.compose.ui:ui:$composeVersion"
+    implementation "androidx.compose.ui:ui-tooling-preview:$composeVersion"
+    implementation "androidx.compose.foundation:foundation:$composeVersion"
+    implementation "androidx.compose.runtime:runtime:$composeVersion"
+    implementation "androidx.compose.material:material:$composeVersion"
+    implementation "androidx.compose.material:material-icons-extended:$composeVersion"
+
+    // Compose navigation
+    implementation "androidx.navigation:navigation-compose:$navigationComposeVersion"
+
+    // Compose Accompanist
+    implementation "com.google.accompanist:accompanist-webview:$composeAccompanist"
+
+    // Hilt
+    implementation "androidx.hilt:hilt-navigation-compose:$hiltNavigationVersion"
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+
+    // Retrofit, OKHttp3, Moshi
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+    implementation "com.squareup.moshi:moshi:$moshiVersion"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshiVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
+    implementation "com.github.haroldadmin:NetworkResponseAdapter:5.0.0"
+
+    // Play services
+    implementation 'com.google.android.gms:play-services-auth:20.3.0'
+
+    implementation 'androidx.navigation:navigation-testing:2.5.2'
+
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    kapt "androidx.hilt:hilt-compiler:1.0.0"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+
+    testImplementation "junit:junit:4.13.2"
+
+    androidTestImplementation "androidx.test.ext:junit:1.1.3"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$composeVersion"
+
+    debugImplementation "androidx.compose.ui:ui-tooling:$composeVersion"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$composeVersion"
+}
+
+private Integer generateVersionCode() {
+    return ext.versionMajor * 10000 + ext.versionMinor * 100 + ext.versionPatch
+}
+
+private String generateVersionName() {
+    String versionName = "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
+    if (ext.versionClassifier == null && ext.isSnapshot) {
+        ext.versionClassifier = "SNAPSHOT"
+    }
+
+    if (ext.versionClassifier != null) {
+        versionName += "-" + ext.versionClassifier
+    } else if (project.gradle.startParameter.taskNames.any { it.toLowerCase().contains('debug') }) {
+        versionName += "-DEBUG"
+    }
+    return versionName
+}

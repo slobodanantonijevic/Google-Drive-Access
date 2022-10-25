@@ -1,0 +1,42 @@
+buildscript {
+    ext {
+        androidCoreVersion = '1.9.0'
+
+        composeVersion = '1.2.1'
+        composeActivityVersion = '1.6.0'
+        navigationComposeVersion = '2.6.0-alpha02'
+        composeAccompanist = '0.26.5-rc'
+
+        lifecycleVersion = '2.5.1'
+
+        hiltVersion = '2.43'
+        hiltNavigationVersion = '1.0.0'
+
+        retrofitVersion = '2.9.0'
+        moshiVersion = '1.14.0'
+
+        alias = 'android'
+        password = 'kotlinAndroid'
+    }
+
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
+        classpath 'com.android.tools.build:gradle:7.3.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
+        classpath 'com.google.gms:google-services:4.3.14'
+
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+        google()
+        jcenter()
+    }
+}
