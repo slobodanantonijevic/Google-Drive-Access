@@ -22,6 +22,8 @@ The functionalities involved include
 * Searching for files and folders
 * Previewing the file
 
+## [Wisit the repo WIKI for more details](https://github.com/slobodanantonijevic/Google-Drive-Access/wiki)
+
 ### Ideas for improvement
 * Download and/or Export files from Drive
 * Upload files to Drive
